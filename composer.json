@@ -1,0 +1,35 @@
+{
+    "name": "51systems/doctrine-extensions",
+    "description": "Doctrine2 Extensions",
+    "type": "library",
+	"license": "LGPL-3.0",
+    "keywords": [
+        "Doctrine"
+    ],
+    "homepage": "https://github.com/51systems/doctrine-extensions",
+    "authors": [
+        {
+            "name": "Dustin Thomson",
+            "email": "dthomson@51systems.com"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.3",
+
+        "doctrine/orm": ">=2.4.0",
+        "zendframework/zend-modulemanager": "2.*"
+    },
+
+    "require-dev" : {
+        "doctrine/orm": "2.4.*@dev"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "DoctrineExtensions": "src/"
+        }
+    },
+    "bin": [
+    ]
+}
