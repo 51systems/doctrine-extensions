@@ -1,6 +1,6 @@
 <?php
 
-namespace DojoGrid;
+namespace DoctrineExtensions;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
