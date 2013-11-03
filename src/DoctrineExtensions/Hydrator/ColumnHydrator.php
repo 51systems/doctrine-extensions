@@ -6,8 +6,8 @@ namespace DoctrineExtensions\Hydrator;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 
 /**
- * Class ColumnHydrator
- * @package DoctrineExtensions\Hydrator
+ * Hydrates a single scalar column.
+ * Will result in an array of strings containing the values in the column
  */
 class ColumnHydrator extends AbstractHydrator
 {
