@@ -1,5 +1,5 @@
 {
-    "name": "51systems/doctrine-extensions",
+    "name": "51systems/doctrine-extensions-module",
     "description": "Doctrine2 Extensions",
     "type": "library",
 	"license": "LGPL-3.0",
