@@ -1,0 +1,9 @@
+<?php
+return array(
+    'doctrine-extensions'=> array(
+        'authenticated_user_provider' => array (
+            'entity' => 'Application\Entity\User'
+        )
+    ),
+);
+
