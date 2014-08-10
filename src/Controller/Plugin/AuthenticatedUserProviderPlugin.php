@@ -4,8 +4,6 @@ namespace DoctrineExtensions\Controller\Plugin;
 use Doctrine\ORM\EntityManager;
 use Zf2Extensions\Controller\Plugin\SendResponsePlugin;
 use Zend\Authentication\AuthenticationService;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Controller\AbstractController;
