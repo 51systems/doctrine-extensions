@@ -2,7 +2,7 @@
 namespace DoctrineExtensions\Controller\Plugin;
 
 use Doctrine\ORM\EntityManager;
-use Systems51\Controller\Plugin\SendResponsePlugin;
+use Zf2Extensions\Controller\Plugin\SendResponsePlugin;
 use Zend\Authentication\AuthenticationService;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -21,26 +21,7 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
      * The entity to return.
      * @var string
      */
-    private $entity;
-
-    public function __construct()
-    {
-        if (!($this->getController() instanceof ServiceLocatorAwareInterface)) {
-            throw new \UnexpectedValueException("Controller must implement ServiceLocatorAwareInterface");
-        }
-
-        /** @var ServiceLocatorAwareInterface|DispatchableInterface $controller */
-        $controller = $this->getController();
-
-        $config = $controller->getServiceLocator()->get('config');
-
-
-        if (!isset($config['doctrine-extensions']['authenticated_user_provider']['entity'])) {
-            throw new \InvalidArgumentException('Config value doctrine-extensions.authenticated_user_provider.entity must be set');
-        }
-
-        $this->entity = $config['doctrine-extensions']['authenticated_user_provider']['entity'];
-    }
+    private $entityClass;
 
     public function __invoke($requireUser=true, $attach=false)
     {
@@ -89,9 +70,38 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
 
         /** @var EntityManager $em */
         $em = $this->getController()->entityManagerProvider();
-        return $em->find($this->entity, $user->getId());
+        return $em->find($this->getEntityClass(), $user->getId());
     }
 
 
+    /**
+     * Gets the entity class to use for user objects.
+     * Will return a cached results if available.
+     *
+     * @return string
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     */
+    private function getEntityClass()
+    {
+        if (isset($this->entityClass))
+            return $this->entityClass;
+
+        if (!($this->getController() instanceof ServiceLocatorAwareInterface)) {
+            throw new \UnexpectedValueException("Controller must implement ServiceLocatorAwareInterface");
+        }
+
+        /** @var ServiceLocatorAwareInterface|DispatchableInterface $controller */
+        $controller = $this->getController();
+
+        $config = $controller->getServiceLocator()->get('config');
+
+
+        if (!isset($config['doctrine-extensions']['authenticated_user_provider']['entity'])) {
+            throw new \InvalidArgumentException('Config value doctrine-extensions.authenticated_user_provider.entity must be set');
+        }
+
+        return $this->entityClass = $config['doctrine-extensions']['authenticated_user_provider']['entity'];
+    }
 
 }
