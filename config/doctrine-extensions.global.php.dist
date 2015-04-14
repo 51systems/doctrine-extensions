@@ -1,6 +1,8 @@
 <?php
 return array(
     'doctrine-extensions'=> array(
+
+        //Set this value if zfcuser.user_entity_class property is not set
         'authenticated_user_provider' => array (
             'entity' => 'Application\Entity\User'
         )

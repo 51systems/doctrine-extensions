@@ -95,11 +95,15 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
         $config = $controller->getServiceLocator()->get('config');
 
 
-        if (!isset($config['doctrine-extensions']['authenticated_user_provider']['entity'])) {
+        if (isset($config['doctrine-extensions']['authenticated_user_provider']['entity'])) {
+            $entityClass = $config['doctrine-extensions']['authenticated_user_provider']['entity'];
+        } else if (isset($config['zfcuser']['user_entity_class'])) {
+            $entityClass = $config['zfcuser']['user_entity_class'];
+        }else {
             throw new \InvalidArgumentException('Config value doctrine-extensions.authenticated_user_provider.entity must be set');
         }
 
-        return $this->entityClass = $config['doctrine-extensions']['authenticated_user_provider']['entity'];
+        return $this->entityClass = $entityClass;
     }
 
 }
