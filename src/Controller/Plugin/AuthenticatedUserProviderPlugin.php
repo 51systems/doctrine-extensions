@@ -2,6 +2,7 @@
 namespace DoctrineExtensions\Controller\Plugin;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\UnitOfWork;
 use Zf2Extensions\Controller\Plugin\SendResponsePlugin;
 use Zend\Authentication\AuthenticationService;
 use Zend\Http\Response;
@@ -39,7 +40,7 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
         $controller = $this->getController();
 
         /** @var AuthenticationService $authService */
-        $authService =  $controller->getServiceLocator()->get('AuthService');
+        $authService =  $controller->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
 
         if (!$authService->hasIdentity()) {
             if (!$requireUser)
@@ -63,12 +64,13 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
 
         $user = $authService->getIdentity();
 
-        if (!$attach)
-            return $user;
-
         /** @var EntityManager $em */
         $em = $this->getController()->entityManagerProvider();
-        return $em->find($this->getEntityClass(), $user->getId());
+        if ($attach && $em->getUnitOfWork()->getEntityState($user) != UnitOfWork::STATE_MANAGED) {
+            return $em->find($this->getEntityClass(), $user->getId());
+        }
+
+        return $user;
     }
 
 
