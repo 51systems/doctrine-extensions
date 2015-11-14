@@ -1,4 +1,7 @@
 <?php
+namespace DoctrineExtensions;
+
+use DoctrineExtensions\ORM\Repository\SubclassRepositoryFactory;
 
 return array(
     'controller_plugins' => array(
@@ -14,8 +17,18 @@ return array(
             'orm_default' => array (
                 'customHydrationModes' => array (
                     'column' => '\DoctrineExtensions\Hydrator\ColumnHydrator'
-                )
-            )
+                ),
+
+                'repositoryFactory' => 'DoctrineExtensions\ORM\SubclassRepositoryFactory',
+            ),
+        )
+    ),
+
+    'service_manager' => array(
+        'factories' => array(
+            'DoctrineExtensions\ORM\SubclassRepositoryFactory' => function() {
+                return new SubclassRepositoryFactory();
+            }
         )
     ),
 );
