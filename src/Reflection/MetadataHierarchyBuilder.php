@@ -17,7 +17,7 @@ class MetadataHierarchyBuilder
     /**
      * @var MetadataNode[]
      */
-    protected $hierarchy = array();
+    protected $hierarchy;
 
     /**
      * @param ClassMetadataFactory $metadata
@@ -32,13 +32,16 @@ class MetadataHierarchyBuilder
             $cache = $metadata->getCacheDriver();
         }
 
-        if ($cache == null || !$cache->contains(self::CACHE_KEY)) {
-            if ($cache != null) {
-                $cache->save(self::CACHE_KEY, $this->buildHierarchy($metadata));
-            }
+        if (empty($this->hierarchy)) {
+            if ($cache == null || !$cache->contains(self::CACHE_KEY)) {
+                if ($cache != null) {
+                    $this->hierarchy = $this->buildHierarchy($metadata);
+                    $cache->save(self::CACHE_KEY, $this->hierarchy);
+                }
 
-        } else {
-            $this->hierarchy = $cache->fetch($cache);
+            } else {
+                $this->hierarchy = $cache->fetch($cache);
+            }
         }
 
 
@@ -53,6 +56,7 @@ class MetadataHierarchyBuilder
      */
     protected function buildHierarchy(ClassMetadataFactory $metadataFactory)
     {
+        $this->hierarchy = array();
         $stack = new SplStack();
 
         foreach ($metadataFactory->getAllMetadata() as $metadata) {
