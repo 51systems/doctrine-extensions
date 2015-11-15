@@ -40,7 +40,7 @@ class MetadataHierarchyBuilder
                 }
 
             } else {
-                $this->hierarchy = $cache->fetch($cache);
+                $this->hierarchy = $cache->fetch(self::CACHE_KEY);
             }
         }
 
