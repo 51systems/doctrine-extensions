@@ -8,6 +8,7 @@ return array(
         'invokables' => array(
             'entityManagerProvider' => '\DoctrineExtensions\Controller\Plugin\EntityManagerProviderPlugin',
             'authenticatedUserProvider' => '\DoctrineExtensions\Controller\Plugin\AuthenticatedUserProviderPlugin',
+            'initForm' => '\DoctrineExtensions\Controller\Plugin\InitFormPlugin'
         )
     ),
 
