@@ -20,16 +20,18 @@ return array(
                     'column' => '\DoctrineExtensions\Hydrator\ColumnHydrator'
                 ),
 
-                'repositoryFactory' => 'DoctrineExtensions\ORM\SubclassRepositoryFactory',
+                'types' => array(
+                    'utc_datetime' => '\DoctrineExtensions\DBAL\Types\UTCDateTimeType'
+                ),
+
+                'repositoryFactory' => '\DoctrineExtensions\ORM\SubclassRepositoryFactory',
             ),
         )
     ),
 
     'service_manager' => array(
-        'factories' => array(
-            'DoctrineExtensions\ORM\SubclassRepositoryFactory' => function() {
-                return new SubclassRepositoryFactory();
-            }
+        'invokables' => array(
+            'DoctrineExtensions\ORM\SubclassRepositoryFactory' => 'DoctrineExtensions\ORM\Repository\SubclassRepositoryFactory'
         )
     ),
 );

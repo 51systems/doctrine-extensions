@@ -7,7 +7,13 @@ use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 
 /**
  * Hydrates a single scalar column.
- * Will result in an array of strings containing the values in the column
+ *
+ * Sometimes doctrine returns an array of arrays, when we actually only want a single
+ * column. For example, if we select a single column off of an entity, it may return
+ * [[id1],[id2]]
+ *
+ * This hydration strategy changes the result into:
+ * [id1, id2]
  */
 class ColumnHydrator extends AbstractHydrator
 {
