@@ -20,20 +20,18 @@ class UTCDateTimeType extends DateTimeType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if ($value === null) {
-            return null;
+        if ($value instanceof \DateTime) {
+            $value = clone $value;
+            $value->setTimezone((self::$utc) ? self::$utc : (self::$utc = new \DateTimeZone('UTC')));
         }
 
-        $value = clone $value;
-        $value->setTimezone((self::$utc) ? self::$utc : (self::$utc = new \DateTimeZone('UTC')));
-
-        return $value->format($platform->getDateTimeFormatString());
+        return parent::convertToDatabaseValue($value, $platform);
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if ($value === null) {
-            return null;
+        if ($value === null || $value instanceof \DateTime) {
+            return $value;
         }
 
         $val = \DateTime::createFromFormat(

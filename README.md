@@ -8,11 +8,22 @@ Collection of extensions to the doctrine2 ORM
   - EntityManagerProvider (entityManagerProvider) - Returns the orm_default entity manager
   - AuthenticatedUserProvider (authenticatedUserProvider) - Gets the currently authenticated user (if any)
   - InitFormPlugin (initForm) - Initializes forms that may need the entity manager. Also sets up a doctrine object hydrator.
+- DataFixtures
+  - AddIfNotPresentTrait - Helper trait to make it easy to only add fixture entities if they aren't already present in the database
 - Types
-  - UTCDateTime type as per [Doctrine Cookbook](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html). Be careful when querying from this
+  - UTCDateTime (`utc_datetime`) type as per [Doctrine Cookbook](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html). Be careful when querying from this
+- Gedmo Extensions
+  - Timestampable
+    - Extends Timestampable extension to support UTCDateTime (`utc_datetime`). `DoctrineExtensions\Gedmo\Timestampable\TimestampableListener` should be used in place of `Gedmo\Timestampable\TimestampableListener` in config files
 - Hydrators
   - Single Column Hydrator
-- SubclassRepositoryFactory that will return a repo that uses the most defined repo definition in the class hierarchy
+- ORM
+  - Repositories
+    - SubclassRepositoryFactory that will return a repo that uses the most defined repo definition in the class hierarchy
+  - Traits
+    - UTCTimestampableEntity - [Timestampable](https://github.com/Atlantic18/DoctrineExtensions/blob/master/doc/timestampable.md)
+    behaviour using UTCDateTime
+    
 
 ## Skipper
 To get The custom type working in skipper, you need to make a [custom configuration file](https://help.skipper18.com/expert-usage/customization/configuration-files) and include the following:
