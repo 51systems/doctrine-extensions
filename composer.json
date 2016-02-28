@@ -20,7 +20,7 @@
         "doctrine/orm": ">=2.4.0",
         "zendframework/zend-modulemanager": ">=2.2",
         "zendframework/zend-authentication" : ">=2.2",
-        "51systems/zf2-extensions": "1.0.*"
+        "51systems/zf2-extensions": "^1.1"
     },
 
     "require-dev" : {
