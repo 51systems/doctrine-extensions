@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: dustin
- * Date: 10/10/13
- * Time: 7:37 PM
- * To change this template use File | Settings | File Templates.
- */
 
 namespace DoctrineExtensions\Test\Hydrator;
 

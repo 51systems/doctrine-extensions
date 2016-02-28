@@ -18,8 +18,6 @@ class Bootstrap
         if (is_readable($vendorPath . '/autoload.php')) {
             $loader = include $vendorPath . '/autoload.php';
 
-            $loader->add('DoctrineExtensions\Test', __DIR__);
-
             $loader->add('Doctrine\Tests', $vendorPath . '/doctrine/orm/tests');
 
         } else {

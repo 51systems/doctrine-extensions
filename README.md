@@ -48,3 +48,6 @@ Add `DoctrineExtensions` to Modules in application.config.php
 ## Config Setup
 Copy doctrine-extensions.global.php.dist to your configuration directory and rename to doctrine-extensions.global.php.
 Modify as necessary.
+
+## Testing
+Some of the unit tests depend on test classes from other modules. Use `--prefer-source` when installing composer to run them.

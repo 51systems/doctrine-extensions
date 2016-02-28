@@ -1,37 +1,46 @@
 {
-    "name": "51systems/doctrine-extensions-module",
-    "description": "Doctrine2 Extensions",
-    "type": "library",
-	"license": "LGPL-3.0",
-    "keywords": [
-        "Doctrine"
-    ],
-    "homepage": "https://github.com/51systems/doctrine-extensions",
-    "authors": [
-        {
-            "name": "Dustin Thomson",
-            "email": "dthomson@51systems.com"
-        }
-    ],
+  "name": "51systems/doctrine-extensions-module",
+  "description": "Doctrine2 Extensions",
+  "type": "library",
+  "license": "LGPL-3.0",
+  "keywords": [
+    "Doctrine"
+  ],
+  "homepage": "https://github.com/51systems/doctrine-extensions",
+  "authors": [
+    {
+      "name": "Dustin Thomson",
+      "email": "dthomson@51systems.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "doctrine/orm": ">=2.4.0",
+    "zendframework/zend-modulemanager": ">=2.2",
+    "zendframework/zend-authentication": ">=2.2",
+    "51systems/zf2-extensions": "^1.1",
+    "gedmo/doctrine-extensions": ">=2.3.6"
+  },
 
-    "require": {
-        "php": ">=5.3",
+  "require-dev": {
+    "phpunit/phpunit": "~4"
+  },
 
-        "doctrine/orm": ">=2.4.0",
-        "zendframework/zend-modulemanager": ">=2.2",
-        "zendframework/zend-authentication" : ">=2.2",
-        "51systems/zf2-extensions": "^1.1"
+  "autoload": {
+    "psr-4": {
+      "DoctrineExtensions\\": "src/"
     },
-
-    "require-dev" : {
-    },
-
-    "autoload": {
-        "psr-4": {
-            "DoctrineExtensions\\": "src/"
-        },
-        "classmap" : ["Module.php"]
-    },
-    "bin": [
+    "classmap": [
+      "Module.php"
     ]
+  },
+
+  "autoload-dev": {
+    "psr-0": {
+      "DoctrineExtensions\\Test\\": "tests/"
+    }
+  },
+
+  "bin": [
+  ]
 }
