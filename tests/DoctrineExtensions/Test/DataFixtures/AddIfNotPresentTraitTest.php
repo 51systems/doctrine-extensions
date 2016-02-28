@@ -17,7 +17,7 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
         $trait = $this->factory();
 
         $entity = new TestEntity('test-id');
-        $criteria = ['name'=> 'test'];
+        $criteria = array('name'=> 'test');
         $prefix = 'test';
 
         \Phake::when($trait)
@@ -50,7 +50,7 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
             ->thenReturn($existingEntity);
 
         $entity = new TestEntity('test-id');
-        $criteria = ['name'=> 'test'];
+        $criteria = array('name'=> 'test');
         $prefix = 'test';
 
         $result = \Phake::makeVisible($trait)->_addIfNotPresent($entity, $criteria, $prefix, $params['object_manager']);
@@ -86,7 +86,7 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
             ->thenReturn($existingEntity);
 
         $entity = new TestEntity('test-id');
-        $criteria = ['name'=> 'test'];
+        $criteria = array('name'=> 'test');
         $prefix = 'test';
 
         $result = \Phake::makeVisible($trait)->_addIfNotPresent($entity, $criteria, $prefix, $params['object_manager']);
@@ -126,7 +126,7 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
             ->thenReturn(new TestEntity('test-id'));
 
         $entity = new TestEntity('test-id');
-        $criteria = ['name'=> 'test'];
+        $criteria = array('name'=> 'test');
         $prefix = 'test';
 
         $result = \Phake::makeVisible($trait)->_addIfNotPresent($entity, $criteria, $prefix, $params['object_manager']);
