@@ -7,7 +7,11 @@ use BadMethodCallException;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Trait applied to fixtures to make it easy to add an entity to the database only if it does not exist
+ * Trait applied to fixtures to make it easy to add an entity to the database only if it does not exist.
+ *
+ * This trait should be applied to classes inheriting from {@link ReferenceRepository} as they already
+ * implement all the abstract methods.
+ *
  */
 trait AddIfNotPresentTrait
 {
@@ -36,6 +40,15 @@ trait AddIfNotPresentTrait
      * @return object
      */
     abstract function getReference($name);
+
+    /**
+     * Check if an object is stored using reference
+     * named by $name
+     *
+     * @param string $name
+     * @return boolean
+     */
+    abstract function hasReference($name);
 
     /**
      * Persists the provided entity to the database if it does not exist.
@@ -79,12 +92,12 @@ trait AddIfNotPresentTrait
      */
     protected function safeAddReference($name, $object)
     {
-        $existing = $this->getReference($name);
-
-        if (is_null($existing)) {
+        if (!$this->hasReference($name)) {
             $this->addReference($name, $object);
             return;
         }
+
+        $existing = $this->getReference($name);
 
         if ($existing !== $object) {
             throw new \UnexpectedValueException(

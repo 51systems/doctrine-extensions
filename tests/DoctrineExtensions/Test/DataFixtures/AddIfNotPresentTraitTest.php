@@ -20,6 +20,11 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
         $criteria = ['name'=> 'test'];
         $prefix = 'test';
 
+        \Phake::when($trait)
+            ->getReference('test-test')
+            ->thenThrow(new \OutOfBoundsException("Reference does not exist"));
+
+
         $result = \Phake::makeVisible($trait)->_addIfNotPresent($entity, $criteria, $prefix, $params['object_manager']);
 
         \Phake::verify($trait)->addReference('test-test', $entity);
@@ -73,6 +78,10 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
             ->thenReturn($existingEntity);
 
         \Phake::when($trait)
+            ->hasReference('test-test')
+            ->thenReturn(true);
+
+        \Phake::when($trait)
             ->getReference('test-test')
             ->thenReturn($existingEntity);
 
@@ -107,6 +116,10 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
         \Phake::when($params['repo'])
             ->findOneBy(\Phake::anyParameters())
             ->thenReturn($existingEntity);
+
+        \Phake::when($trait)
+            ->hasReference('test-test')
+            ->thenReturn(true);
 
         \Phake::when($trait)
             ->getReference('test-test')
