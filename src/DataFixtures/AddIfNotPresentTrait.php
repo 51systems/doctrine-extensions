@@ -3,6 +3,7 @@
 namespace DoctrineExtensions\DataFixtures;
 
 
+use BadMethodCallException;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -10,7 +11,31 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 trait AddIfNotPresentTrait
 {
+
+    /**
+     * Set the reference entry identified by $name
+     * and referenced to managed $object. If $name
+     * already is set, it throws a
+     * BadMethodCallException exception
+     *
+     * @param string $name
+     * @param object $object - managed object
+     * @see Doctrine\Common\DataFixtures\ReferenceRepository::addReference
+     * @throws BadMethodCallException - if repository already has
+     *      a reference by $name
+     * @return void
+     */
     abstract function addReference($name, $object);
+
+    /**
+     * Loads an object using stored reference
+     * named by $name
+     *
+     * @param string $name
+     * @see Doctrine\Common\DataFixtures\ReferenceRepository::getReference
+     * @return object
+     */
+    abstract function getReference($name);
 
     /**
      * Persists the provided entity to the database if it does not exist.
@@ -33,13 +58,39 @@ trait AddIfNotPresentTrait
 
         $existingEntity = $repo->findOneBy($criteria);
 
-        if ($existingEntity) {
-            $this->addReference($referencePrefix . '-' . reset($criteria), $existingEntity);
+        if (!is_null($existingEntity)) {
+            $this->safeAddReference($referencePrefix . '-' . reset($criteria), $existingEntity);
             return $existingEntity;
         }
 
         $manager->persist($entity);
-        $this->addReference($referencePrefix . '-' . reset($criteria), $entity);
+        $this->safeAddReference($referencePrefix . '-' . reset($criteria), $entity);
         return $entity;
+    }
+
+    /**
+     * Safely adds the reference.
+     *
+     * Checks to see if the reference already exists, and if it does, ensures
+     * that it matches the object.
+     *
+     * @param string $name
+     * @param object $object - managed object
+     */
+    protected function safeAddReference($name, $object)
+    {
+        $existing = $this->getReference($name);
+
+        if (is_null($existing)) {
+            $this->addReference($name, $object);
+            return;
+        }
+
+        if ($existing !== $object) {
+            throw new \UnexpectedValueException(
+                sprintf("New value does not match existing %s reference value.\n".
+                "Cannot reset reference value one it has been set",
+                    $name));
+        }
     }
 }
