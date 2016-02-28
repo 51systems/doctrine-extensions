@@ -142,10 +142,10 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
      * @return array
      */
     public function params() {
-        $params = [
+        $params = array(
             'object_manager' => \Phake::mock(ObjectManager::class),
             'repo' => \Phake::mock(EntityRepository::class)
-        ];
+        );
 
         \Phake::when($params['object_manager'])
             ->getRepository(\Phake::anyParameters())->thenReturn($params['repo']);
