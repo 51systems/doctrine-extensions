@@ -1,4 +1,6 @@
 # doctrine-extensions
+[![Build Status](https://travis-ci.org/51systems/doctrine-extensions-module.svg?branch=master)](https://travis-ci.org/51systems/doctrine-extensions-module)
+
 
 
 Collection of extensions to the doctrine2 ORM
@@ -23,6 +25,7 @@ Collection of extensions to the doctrine2 ORM
   - Traits
     - UTCTimestampableEntity - [Timestampable](https://github.com/Atlantic18/DoctrineExtensions/blob/master/doc/timestampable.md)
     behaviour using UTCDateTime
+    - EntityManagerAwareTrait - Provides getters/setters for object to hold and instance of an EntityManager. 
     
 
 ## Skipper
