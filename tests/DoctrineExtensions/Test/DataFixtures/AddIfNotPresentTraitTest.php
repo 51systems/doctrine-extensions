@@ -143,8 +143,8 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function params() {
         $params = array(
-            'object_manager' => \Phake::mock(ObjectManager::class),
-            'repo' => \Phake::mock(EntityRepository::class)
+            'object_manager' => \Phake::mock('\Doctrine\Common\Persistence\ObjectManager'),
+            'repo' => \Phake::mock('\Doctrine\ORM\EntityRepository')
         );
 
         \Phake::when($params['object_manager'])
@@ -157,7 +157,7 @@ class AddIfNotPresentTraitTest extends \PHPUnit_Framework_TestCase
      * @return ConcreteAddIfNotPresentTrait|\Phake_IMock
      */
     public function factory() {
-        return \Phake::partialMock(ConcreteAddIfNotPresentTrait::class);
+        return \Phake::partialMock('DoctrineExtensions\Test\DataFixtures\ConcreteAddIfNotPresentTrait');
     }
 }
 
