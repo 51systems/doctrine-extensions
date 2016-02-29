@@ -26,6 +26,8 @@ Collection of extensions to the doctrine2 ORM
     - UTCTimestampableEntity - [Timestampable](https://github.com/Atlantic18/DoctrineExtensions/blob/master/doc/timestampable.md)
     behaviour using UTCDateTime
     - EntityManagerAwareTrait - Provides getters/setters for object to hold and instance of an EntityManager. 
+  - Alias
+    - A smarter alias to use with the doctrine query builder. Allows building / chaining of multiple aliases for subquries.
     
 
 ## Skipper
