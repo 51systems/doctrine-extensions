@@ -6,9 +6,9 @@ use DoctrineExtensions\ORM\Repository\SubclassRepositoryFactory;
 return array(
     'controller_plugins' => array(
         'invokables' => array(
-            'entityManagerProvider' => '\DoctrineExtensions\Controller\Plugin\EntityManagerProviderPlugin',
-            'authenticatedUserProvider' => '\DoctrineExtensions\Controller\Plugin\AuthenticatedUserProviderPlugin',
-            'initForm' => '\DoctrineExtensions\Controller\Plugin\InitFormPlugin'
+            'entityManagerProvider' => 'DoctrineExtensions\Controller\Plugin\EntityManagerProviderPlugin',
+            'authenticatedUserProvider' => 'DoctrineExtensions\Controller\Plugin\AuthenticatedUserProviderPlugin',
+            'initForm' => 'DoctrineExtensions\Controller\Plugin\InitFormPlugin'
         )
     ),
 
@@ -17,14 +17,14 @@ return array(
         'configuration' => array (
             'orm_default' => array (
                 'customHydrationModes' => array (
-                    'column' => '\DoctrineExtensions\Hydrator\ColumnHydrator'
+                    'column' => 'DoctrineExtensions\Hydrator\ColumnHydrator'
                 ),
 
                 'types' => array(
-                    'utc_datetime' => '\DoctrineExtensions\DBAL\Types\UTCDateTimeType'
+                    'utc_datetime' => 'DoctrineExtensions\DBAL\Types\UTCDateTimeType'
                 ),
 
-                'repositoryFactory' => '\DoctrineExtensions\ORM\SubclassRepositoryFactory',
+                'repositoryFactory' => 'DoctrineExtensions\ORM\SubclassRepositoryFactory',
             ),
         )
     ),
