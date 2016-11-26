@@ -17,10 +17,27 @@ use Zend\Stdlib\DispatchableInterface;
 class AuthenticatedUserProviderPlugin extends SendResponsePlugin
 {
     /**
+     * @var AuthenticationService
+     */
+    private $authenticationService;
+
+    /**
      * The entity to return.
      * @var string
      */
     private $entityClass;
+
+    /**
+     * AuthenticatedUserProviderPlugin constructor.
+     * @param AuthenticationService $authenticationService
+     * @param string $entityClass Class to use for entity objects
+     */
+    public function __construct(AuthenticationService $authenticationService, $entityClass)
+    {
+        $this->authenticationService = $authenticationService;
+        $this->entityClass = $entityClass;
+    }
+
 
     public function __invoke($requireUser=true, $attach=false)
     {
@@ -39,10 +56,7 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
         /** @var AbstractController $controller */
         $controller = $this->getController();
 
-        /** @var AuthenticationService $authService */
-        $authService =  $controller->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
-
-        if (!$authService->hasIdentity()) {
+        if (!$this->authenticationService->hasIdentity()) {
             if (!$requireUser)
                 return null;
 
@@ -62,50 +76,15 @@ class AuthenticatedUserProviderPlugin extends SendResponsePlugin
             $this->sendResponse($response);
         }
 
-        $user = $authService->getIdentity();
+        $user = $this->authenticationService->getIdentity();
 
         /** @var EntityManager $em */
+        /** @noinspection PhpUndefinedMethodInspection */
         $em = $this->getController()->entityManagerProvider();
         if ($attach && $em->getUnitOfWork()->getEntityState($user) != UnitOfWork::STATE_MANAGED) {
-            return $em->find($this->getEntityClass(), $user->getId());
+            return $em->find($this->entityClass, $user->getId());
         }
 
         return $user;
     }
-
-
-    /**
-     * Gets the entity class to use for user objects.
-     * Will return a cached results if available.
-     *
-     * @return string
-     * @throws \InvalidArgumentException
-     * @throws \UnexpectedValueException
-     */
-    private function getEntityClass()
-    {
-        if (isset($this->entityClass))
-            return $this->entityClass;
-
-        if (!($this->getController() instanceof ServiceLocatorAwareInterface)) {
-            throw new \UnexpectedValueException("Controller must implement ServiceLocatorAwareInterface");
-        }
-
-        /** @var ServiceLocatorAwareInterface|DispatchableInterface $controller */
-        $controller = $this->getController();
-
-        $config = $controller->getServiceLocator()->get('config');
-
-
-        if (isset($config['doctrine-extensions']['authenticated_user_provider']['entity'])) {
-            $entityClass = $config['doctrine-extensions']['authenticated_user_provider']['entity'];
-        } else if (isset($config['zfcuser']['user_entity_class'])) {
-            $entityClass = $config['zfcuser']['user_entity_class'];
-        }else {
-            throw new \InvalidArgumentException('Config value doctrine-extensions.authenticated_user_provider.entity must be set');
-        }
-
-        return $this->entityClass = $entityClass;
-    }
-
 }

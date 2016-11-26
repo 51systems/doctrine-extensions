@@ -15,11 +15,16 @@
   ],
   "require": {
     "php": ">=5.4",
-    "doctrine/orm": ">=2.4.0",
+
+    "zendframework/zend-mvc": "^2 || ^3",
     "zendframework/zend-modulemanager": ">=2.2",
     "zendframework/zend-authentication": ">=2.2",
-    "51systems/zf2-extensions": "^1.1",
-    "gedmo/doctrine-extensions": ">=2.3.6"
+
+    "doctrine/orm": ">=2.4.0",
+    "doctrine/doctrine-module": "^2.0",
+    "gedmo/doctrine-extensions": ">=2.3.6",
+
+    "51systems/zf2-extensions": "^1.1"
   },
 
   "require-dev": {

@@ -1,14 +1,12 @@
 <?php
 namespace DoctrineExtensions;
 
-use DoctrineExtensions\ORM\Repository\SubclassRepositoryFactory;
-
 return array(
     'controller_plugins' => array(
-        'invokables' => array(
-            'entityManagerProvider' => 'DoctrineExtensions\Controller\Plugin\EntityManagerProviderPlugin',
-            'authenticatedUserProvider' => 'DoctrineExtensions\Controller\Plugin\AuthenticatedUserProviderPlugin',
-            'initForm' => 'DoctrineExtensions\Controller\Plugin\InitFormPlugin'
+        'factories' => array(
+            'entityManagerProvider' => 'DoctrineExtensions\Controller\Plugin\EntityManagerProviderPluginFactory',
+            'authenticatedUserProvider' => 'DoctrineExtensions\Controller\Plugin\AuthenticatedUserProviderPluginFactory',
+            'initForm' => 'DoctrineExtensions\Controller\Plugin\InitFormPluginFactory'
         )
     ),
 

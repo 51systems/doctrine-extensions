@@ -2,6 +2,7 @@
 
 namespace DoctrineExtensions\Controller\Plugin;
 
+use Doctrine\ORM\EntityManager;
 use \Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
@@ -10,11 +11,25 @@ use \Zend\Mvc\Controller\Plugin\AbstractPlugin;
 class EntityManagerProviderPlugin extends AbstractPlugin
 {
     /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * EntityManagerProviderPlugin constructor.
+     * @param $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()
     {
-        return $this->getController()->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        return $this->entityManager;
     }
 
     /**
