@@ -21,7 +21,7 @@
     "zendframework/zend-authentication": ">=2.2",
 
     "doctrine/orm": ">=2.4.0",
-    "doctrine/doctrine-module": "^2.0",
+    "doctrine/doctrine-module": "^1.2.0",
     "gedmo/doctrine-extensions": ">=2.3.6",
 
     "51systems/zf2-extensions": "^1.1"
