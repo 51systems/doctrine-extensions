@@ -84,14 +84,29 @@ class Alias
     }
 
     /**
-     * Writes out a parameter name
+     * Writes out a parameter name.
      *
-     * @param string $name
+     * The output of this method should be passed to QueryBuilder->setParameter()
+     *
+     * @param string $name name of the parameter
      * @return string
      */
     public function param($name)
     {
         return $this->alias() . '_' . $name;
+    }
+
+    /**
+     * Writes out a parameter name prefixed with a ':'
+     *
+     * This should be used in QueryBuilder()->where() and similar methods.
+     *
+     * @param string $name name of the parameter
+     * @return string
+     */
+    public function pParm($name)
+    {
+        return ':' . $this->alias() . '_' . $name;
     }
 
     /**
