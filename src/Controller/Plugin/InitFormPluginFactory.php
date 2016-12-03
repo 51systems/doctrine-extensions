@@ -29,10 +29,10 @@ class InitFormPluginFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /** @var HydratorPluginManager $m */
-        $m = $container->get('hydratorManager');
+        $m = $container->get('HydratorManager');
 
         /** @var DoctrineObject $doctrineHydrator */
-        $doctrineHydrator = $m->get('DoctrineModule\Stdlib\Hydrator\DoctrineObject');
+        $doctrineHydrator = $m->get(DoctrineObject::class);
 
         return new InitFormPlugin($doctrineHydrator);
     }
